@@ -4,6 +4,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const index = () => import('../pages/index.vue')
+const layout = () => import('../layouts/default.vue')
+const admin = () => import('../pages/admin.vue')
 
 export function createRouter() {
   return new Router({
@@ -11,8 +13,14 @@ export function createRouter() {
     fallback: false,
     scrollBehavior: () => ({ y: 0 }),
     routes: [
-      { path: '/index', component: index },
-      { path: '/', redirect: '/index' }
+      {
+        path: '/',
+        component: layout,
+        children: [
+          { path: 'index', component: index },
+          { path: 'admin', component: admin }
+        ]
+      }
     ]
   })
 }

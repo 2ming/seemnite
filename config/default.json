@@ -32,7 +32,7 @@
   },
   "fe": {
     "copyright": "",
-    "storageNamespace": "easy-mock_",
+    "storageNamespace": "seemnite_",
     "timeout": 25000,
     "publicPath": "/dist/"
   }

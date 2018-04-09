@@ -2,17 +2,32 @@
 
 const Koa = require('koa')
 const path = require('path')
+const validate = require('koa-validate')
+const koaBody = require('koa-body')
 const config = require('config')
 const staticCache = require('koa-static-cache')
 const routerConfig = require('./router-config')
+const Router = require('koa-router')
+const middleware = require('./middlewares')
 
 const app = module.exports =  new Koa()
+const router = new  Router()
 const resolve = file => path.resolve(__dirname, file)
 const isProd = process.env.NODE_ENV === 'production'
+
+validate(app)
 
 app
   .use(serve('/dist', './dist'))
   .use(serve('/public', './public'))
+  .use(middleware.util)
+  .use(async (ctx, next) => {
+    const start = new Date()
+    await next()
+    const ms = new Date() - start
+    console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  })
+  .use(koaBody({ multipart: true }))
   .use(routerConfig.api.routes())
   .use(routerConfig.api.allowedMethods())
 
@@ -22,7 +37,8 @@ app.proxy = config.get('proxy')
 if (!module.parent) {
   const port = config.get('port')
   const host = config.get('host')
-  app.use(require('./middlewares/view').render(app))
+  router.get('*', require('./middlewares/view').render(app))
+  app.use(router.routes()).use(router.allowedMethods())
   app.listen(port, host)
   console.log(`server started at http://${host}:${port}`)
 }

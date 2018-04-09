@@ -1,15 +1,12 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div class="main">
+    error
   </div>
 </template>
-
 <script>
 export default {
-  name: 'app'
 }
 </script>
-
 <style lang="less">
-@import url('./asset/style/screen.less');
+
 </style>

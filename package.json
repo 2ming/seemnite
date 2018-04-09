@@ -31,12 +31,14 @@
   "dependencies": {
     "@koa/cors": "^2.2.1",
     "axios": "^0.18.0",
-    "config": "^1.30.0",
     "ioredis": "^3.2.2",
     "koa": "^2.5.0",
+    "koa-body": "^2.5.0",
     "koa-ratelimit": "^4.0.0",
     "koa-router": "^7.4.0",
     "koa-static-cache": "^5.1.2",
+    "koa-validate": "^1.0.7",
+    "mongoose": "^5.0.13",
     "restc": "^0.3.2",
     "universal-cookie": "^2.1.2",
     "vue": "^2.5.16",
@@ -59,6 +61,7 @@
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
     "chokidar": "^2.0.3",
+    "config": "^1.29.2",
     "copy-webpack-plugin": "^4.5.1",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
@@ -104,6 +107,9 @@
   "engines": {
     "node": ">=7.0",
     "npm": ">=4.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "*"
   },
   "browserslist": [
     "> 1%",
