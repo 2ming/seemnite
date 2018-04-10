@@ -1,8 +1,8 @@
 <template>
   <div class="title">
-    <a href="/">Home</a>
-    <a class="extra" href="/about/">About</a>
-    <a class="extra" href="/Demo/">Demo</a>
+    <router-link to="/index">Home</router-link>
+    <router-link class="extra" to="/about">About</router-link>
+    <a class="extra" target="_blank" href="http://www.2ming.me/Demo">Demo</a>
   </div>
 </template>
 <script>

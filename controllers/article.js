@@ -1,8 +1,8 @@
-// import path from 'path'
-// import os from 'os'
-// import fs from 'fs'
-// import formidable from 'formidable'
+const config = require('config')
+
 const { ArticleProxy } = require('../proxy')
+
+const defPageSize = config.get('pageSize')
 
 module.exports = class ArticleController {
   /**
@@ -22,7 +22,15 @@ module.exports = class ArticleController {
    * @param Object ctx
    */
   static async get(ctx) {
-    ctx.body = ''
+    let id = ctx.params.id
+    let details = await ArticleProxy.getById(id)
+
+    if (!details) {
+      ctx.body = ctx.util.refail('文章查询失败')
+      return
+    }
+
+    ctx.body = ctx.util.resuccess(details)
   }
 
   /**
@@ -30,7 +38,28 @@ module.exports = class ArticleController {
    * @param Object ctx
    */
   static async list(ctx) {
-    ctx.body = ''
+    const pageIndex = ctx.checkQuery('page_index').empty().toInt().gt(0).default(1).value
+    const pageSize = ctx.checkQuery('page_size').empty().toInt().gt(0).default(defPageSize).value
+
+    if (ctx.errors) {
+      ctx.body = ctx.util.refail(null, 10001, ctx.errors)
+      return
+    }
+    let total = await ArticleProxy.count()
+
+    const opt = {
+      select: 'title createdAt',
+      skip: (pageIndex - 1) * pageSize,
+      limit: pageSize,
+      sort: '-created_at'
+    }
+    let articles = await ArticleProxy.find({}, opt)
+    ctx.body = ctx.util.resuccess({
+      list: articles,
+      pageIndex,
+      pageSize,
+      total
+    })
   }
 
   /**

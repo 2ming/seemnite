@@ -10,7 +10,7 @@ const {
 } = require('./controllers')
 
 exports.api = apiRouter
-  .get('/archive', article.list)
+  .get('/articles', article.list)
   .get('/article/:id?', article.get)
   .post('/article', article.create)
   .post('/article/:id?', article.update)

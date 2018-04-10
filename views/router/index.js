@@ -6,6 +6,8 @@ Vue.use(Router)
 const index = () => import('../pages/index.vue')
 const layout = () => import('../layouts/default.vue')
 const admin = () => import('../pages/admin.vue')
+const about = () => import('../pages/about.vue')
+const details = () => import('../pages/details.vue')
 
 export function createRouter() {
   return new Router({
@@ -15,10 +17,13 @@ export function createRouter() {
     routes: [
       {
         path: '/',
+        redirect: 'index',
         component: layout,
         children: [
           { path: 'index', component: index },
-          { path: 'admin', component: admin }
+          { path: 'details/:id', component: details },
+          { path: 'admin', component: admin },
+          { path: 'about', component: about }
         ]
       }
     ]

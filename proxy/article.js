@@ -8,17 +8,20 @@ module.exports = class GroupProxy {
 
     return article.save()
   }
+  static async count(query) {
+    return Article.count()
+  }
 
-  static findByName(name) {
-    return Article.findOne({ name })
+  static getById(id) {
+    return Article.findById(id)
   }
 
   static findOne(query) {
     return Article.findOne(query)
   }
 
-  static find(query) {
-    return Article.find(query, {})
+  static find(query, opt) {
+    return Article.find(query, {}, opt)
   }
 
   static updateById(id, doc) {

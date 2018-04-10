@@ -22,7 +22,7 @@ instance.interceptors.response.use(
     if (res.data.code && res.data.code === '100') {
       return res
     }
-    return res
+    return res.data.data
   }
   ,
   error => {
