@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="margin-top50">
     <ul class="posts">
-        <li @click="goDetails(item._id)" v-for="item in articles" :key="item._id"><span>{{ item.createdAt | timeFormat('yyyy-MM-dd') }}</span> &raquo; <a>{{ item.title }}</a></li>
+        <li @click="goDetails(item._id)" v-for="item in articles" :key="item._id"><span>{{ item.createdAt | timeFormat('yyyy-MM-dd') }}</span> &raquo; <b>{{ item.title }}</b></li>
     </ul>
   </div>
 </template>
@@ -40,6 +40,16 @@ export default {
 </script>
 
 <style lang="less">
-
+.posts{
+  li{
+    cursor: pointer;
+    b{
+      color: #2d8cf0;
+    }
+  }
+}
+.margin-top50{
+  margin-top: 50px;
+}
 </style>
 

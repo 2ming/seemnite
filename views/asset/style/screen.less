@@ -5,7 +5,13 @@
 /* Site
 /*
 /*****************************************************************************/
-
+body{
+  font-size: 14px;
+}
+div{
+  padding: 0;
+  margin: 0;
+}
 .site {
   font-size: 110%;
   text-align: justify;
@@ -16,15 +22,15 @@
   padding: 20px 0 0 280px;
   .title{
     a {
-      color: #a00;
+      color: #aaa;
       text-decoration: none;
+      margin-left: 1em;
       &:hover{
         color: black;
       }
-      &.extra {
-        color: #aaa;
+      &.router-link-active {
+        color: #a00;
         text-decoration: none;
-        margin-left: 1em;
         &:hover{
           color: black;
         }
@@ -50,7 +56,10 @@
 .title {
   color: #a00;
   font-weight: bold;
-  margin-bottom: 2em;
+  .time{
+    color: #999;
+    font-weight: normal;
+  }
 }
 
 .author-side {

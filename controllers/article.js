@@ -35,7 +35,7 @@ module.exports = class ArticleController {
    */
   static async get(ctx) {
     let id = ctx.params.id
-    let details = await ArticleProxy.getById(id)
+    let details = await ArticleProxy.getById(id).populate('tags')
 
     if (!details) {
       ctx.body = ctx.util.refail('文章查询失败')

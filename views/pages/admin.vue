@@ -95,10 +95,10 @@ export default {
     color: #fff;
   }
   input{
-    width: 100%;
+    width: 95%;
     border-radius: 3px;
     border: 1px solid #ccc;
-    height: 40px;
+    height: 32px;
     padding: 4px 10px;
   }
   .width-80{

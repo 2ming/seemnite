@@ -14,11 +14,12 @@ A blog system by node
 - [ ] 登陆 -- 未完成
 
 ### Launch
-文章发布地址：http://0.0.0.0:7300/admin
+
 ```sh
 
 $ npm run dev
 # Visit http://127.0.0.1:7300
+# 文章发布地址 http://0.0.0.0:7300/admin
 ```
 
 ## More Commands

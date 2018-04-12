@@ -1,6 +1,10 @@
 <template>
   <div class="padding">
-    <div class="title">{{details.title}}</div>
+    <div class="title">{{details.title}}<span class="time"> 日期：{{details.createdAt | timeFormat('yyyy-MM-dd')}}</span></div>
+    <div>
+      标签：
+      <span v-for="tag in details.tags" :key="tag.id">{{tag.name}}</span>
+    </div>
     <div v-html="compiledMarkdown"></div>
   </div>
 </template>
