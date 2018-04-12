@@ -1,3 +1,4 @@
+/* eslint prefer-promise-reject-errors: 0 */
 import { createApp } from './main'
 
 const isDev = process.env.NODE_ENV !== 'production'
