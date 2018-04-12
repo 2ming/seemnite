@@ -1,6 +1,7 @@
 const config = require('config')
 
 const { ArticleProxy } = require('../proxy')
+const { Tag } = require('../models')
 
 const defPageSize = config.get('pageSize')
 
@@ -11,6 +12,17 @@ module.exports = class ArticleController {
    */
   static async create(ctx) {
     let body = ctx.request.body
+    if (body.tags && body.tags.length) {
+      body.tags = await Promise.all(
+        body.tags.map(async tag => {
+          let value = await Tag.findOne({ name: tag })
+          if (!value) {
+            value = await Tag.create({ name: tag })
+          }
+          return value.id
+        })
+      )
+    }
 
     await ArticleProxy.newAndSave(body)
 
@@ -38,8 +50,18 @@ module.exports = class ArticleController {
    * @param Object ctx
    */
   static async list(ctx) {
-    const pageIndex = ctx.checkQuery('page_index').empty().toInt().gt(0).default(1).value
-    const pageSize = ctx.checkQuery('page_size').empty().toInt().gt(0).default(defPageSize).value
+    const pageIndex = ctx
+      .checkQuery('page_index')
+      .empty()
+      .toInt()
+      .gt(0)
+      .default(1).value
+    const pageSize = ctx
+      .checkQuery('page_size')
+      .empty()
+      .toInt()
+      .gt(0)
+      .default(defPageSize).value
 
     if (ctx.errors) {
       ctx.body = ctx.util.refail(null, 10001, ctx.errors)

@@ -5,6 +5,7 @@ import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
 import titleMixin from './util/title'
 import filters from './util/filters'
+import './asset/style/them.css'
 
 // mixin for handling title
 Vue.mixin(titleMixin)

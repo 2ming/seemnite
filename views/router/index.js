@@ -22,10 +22,10 @@ export function createRouter() {
         children: [
           { path: 'index', component: index },
           { path: 'details/:id', component: details },
-          { path: 'admin', component: admin },
           { path: 'about', component: about }
         ]
-      }
+      },
+      { path: '/admin', component: admin }
     ]
   })
 }
