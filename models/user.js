@@ -22,6 +22,6 @@ const schema = new Schema({
   }
 })
 
-schema.index({ created_at: -1 })
+schema.index({ name: 1 }, { unique: true })
 
 module.exports = mongoose.model('User', schema)

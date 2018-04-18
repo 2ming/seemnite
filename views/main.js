@@ -6,6 +6,8 @@ import { sync } from 'vuex-router-sync'
 import titleMixin from './util/title'
 import filters from './util/filters'
 import './asset/style/them.css'
+import Cookies from 'universal-cookie'
+import conf from './config'
 
 // mixin for handling title
 Vue.mixin(titleMixin)
@@ -21,6 +23,27 @@ export function createApp() {
   // create store and router instances
   const store = createStore()
   const router = createRouter()
+  if (!store.state.token) {
+    const cookies = new Cookies()
+    let token = cookies.get(conf.storageNamespace + 'token')
+    if (token) store.commit('SET_TOKEN', token)
+  }
+  router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      // this route requires auth, check if logged in
+      // if not, redirect to login page.
+      if (!store.state.token) {
+        next({
+          path: '/login',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        next()
+      }
+    } else {
+      next() // 确保一定要调用 next()
+    }
+  })
 
   // sync the router with the vuex store.
   // this registers `store.state.route`

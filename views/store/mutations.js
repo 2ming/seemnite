@@ -1,5 +1,5 @@
-// import Vue from 'vue'
-
 export default {
-
+  SET_TOKEN(state, token) {
+    state.token = token
+  }
 }

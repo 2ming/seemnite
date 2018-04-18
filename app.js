@@ -5,6 +5,8 @@ const path = require('path')
 const validate = require('koa-validate')
 const koaBody = require('koa-body')
 const config = require('config')
+const koaJwt = require('koa-jwt')
+const pathToRegexp = require('path-to-regexp')
 const staticCache = require('koa-static-cache')
 const routerConfig = require('./router-config')
 const Router = require('koa-router')
@@ -14,6 +16,7 @@ const app = module.exports =  new Koa()
 const router = new  Router()
 const resolve = file => path.resolve(__dirname, file)
 const isProd = process.env.NODE_ENV === 'production'
+const jwtSecret = config.get('jwt.secret')
 
 validate(app)
 
@@ -27,6 +30,17 @@ app
     const ms = new Date() - start
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
   })
+  .use(koaJwt({ secret: jwtSecret }).unless((ctx) => {
+    if (/^\/api/.test(ctx.path)) {
+      return pathToRegexp([
+        '/api/articles',
+        '/api/articles/:id',
+        '/api/login',
+        '/api/register'
+      ]).test(ctx.path)
+    }
+    return true
+  }))
   .use(koaBody({ multipart: true }))
   .use(routerConfig.api.routes())
   .use(routerConfig.api.allowedMethods())

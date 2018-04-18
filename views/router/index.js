@@ -8,6 +8,7 @@ const layout = () => import('../layouts/default.vue')
 const admin = () => import('../pages/admin.vue')
 const about = () => import('../pages/about.vue')
 const details = () => import('../pages/details.vue')
+const login = () => import('../pages/login.vue')
 
 export function createRouter() {
   return new Router({
@@ -25,7 +26,8 @@ export function createRouter() {
           { path: 'about', component: about }
         ]
       },
-      { path: '/admin', component: admin }
+      { path: '/admin', component: admin, meta: { requiresAuth: true } },
+      { path: '/login', component: login }
     ]
   })
 }

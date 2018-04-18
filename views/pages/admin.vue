@@ -31,6 +31,7 @@ import { debounce } from 'lodash'
 import { seemnite } from '../api'
 
 export default {
+  middleware: 'auth',
   data() {
     return {
       source: '',
@@ -67,7 +68,11 @@ export default {
     addNews() {
       seemnite
         .createArticle({
-          data: {title: this.title, tags: this.tags.split(','), content: this.source}
+          data: {
+            title: this.title,
+            tags: this.tags.split(','),
+            content: this.source
+          }
         })
         .then(res => {
           this.$router.push({
@@ -80,12 +85,11 @@ export default {
 </script>
 
 <style lang="less">
-
-.admin-top{
+.admin-top {
   display: flex;
   background: #efefef;
   padding: 10px;
-  button{
+  button {
     height: 40px;
     width: 100%;
     padding: 0 20px;
@@ -94,14 +98,14 @@ export default {
     border: 1px solid #2d8cf0;
     color: #fff;
   }
-  input{
+  input {
     width: 95%;
     border-radius: 3px;
     border: 1px solid #ccc;
     height: 32px;
     padding: 4px 10px;
   }
-  .width-80{
+  .width-80 {
     flex-basis: 80px;
     flex-grow: 0;
     flex-shrink: 0;
