@@ -30,7 +30,6 @@ export default {
         })
         .then(res => {
           let cookies = new Cookies()
-          debugger
           this.$store.commit('SET_TOKEN', res.token)
           cookies.set(config.storageNamespace + 'token', res.token, {
             path: '/',
