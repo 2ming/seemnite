@@ -30,7 +30,11 @@ module.exports = {
         options: {
           compilerOptions: {
             preserveWhitespace: false
-          }
+          },
+          loaders: utils.cssLoaders({
+            sourceMap: isProd,
+            extract: isProd
+          })
         }
       },
       {
