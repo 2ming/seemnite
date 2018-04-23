@@ -8,8 +8,8 @@
   </div>
 </template>
 <script>
-import Nav from '../components/Nav.vue'
-import AuthorSide from '../components/AuthorSide.vue'
+import Nav from '../pages/common/Nav.vue'
+import AuthorSide from '../pages/common/AuthorSide.vue'
 
 export default {
   components: {

@@ -1,21 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import index from '../pages/index.vue'
+import layout from '../layouts/default.vue'
+import admin from '../pages/admin.vue'
+import about from '../pages/about.vue'
+import details from '../pages/details.vue'
+import login from '../pages/login.vue'
+import logout from '../pages/logout.vue'
 
 Vue.use(Router)
-
-const index = () => import('../pages/index.vue')
-const layout = () => import('../layouts/default.vue')
-const admin = () => import('../pages/admin.vue')
-const about = () => import('../pages/about.vue')
-const details = () => import('../pages/details.vue')
-const login = () => import('../pages/login.vue')
 
 export function createRouter() {
   return new Router({
     mode: 'history',
-    fallback: false,
-    scrollBehavior: () => ({ y: 0 }),
     routes: [
+      { path: '/login', component: login },
+      { path: '/logout', component: logout },
       {
         path: '/',
         redirect: 'index',
@@ -26,8 +26,7 @@ export function createRouter() {
           { path: 'about', component: about }
         ]
       },
-      { path: '/admin', component: admin, meta: { requiresAuth: true } },
-      { path: '/login', component: login }
+      { path: '/admin', component: admin, meta: { requiresAuth: true } }
     ]
   })
 }

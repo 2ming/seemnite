@@ -14,9 +14,11 @@ const seemnite = {
   updateArticle: (config, id) => createAPI(`/article/${id}`, 'post', config),
   deleteArticle: (config, id) => createAPI(`/article/${id}`, 'delete', config),
   articleDetail: (config, id) => createAPI(`/article/${id}`, 'get', config),
-  articles: (config) => createAPI('/articles', 'get', config)
+  articles: (config) => createAPI('/articles', 'get', config),
+  createAndUpdate: (config, id) => id ? seemnite.updateArticle(config, id) : seemnite.createArticle(config)
 }
 const user = {
+  wallpaper: config => createAPI('/wallpaper', 'get', config),
   login: (config) => createAPI('/login', 'post', config),
   logout: (config) => createAPI('/logout', 'get', config),
   list: (config) => createAPI('/user', 'get', config),

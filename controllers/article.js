@@ -11,7 +11,7 @@ module.exports = class ArticleController {
    * @param Object ctx
    */
   static async create(ctx) {
-    let body = ctx.request.body
+    let { body } = ctx.request
     if (body.tags && body.tags.length) {
       body.tags = await Promise.all(
         body.tags.map(async tag => {
@@ -34,8 +34,8 @@ module.exports = class ArticleController {
    * @param Object ctx
    */
   static async get(ctx) {
-    let id = ctx.params.id
-    let details = await ArticleProxy.getById(id).populate('tags')
+    let { id } = ctx.params
+    let details = await ArticleProxy.getById(id).populate({path: 'tags', select: 'name'})
 
     if (!details) {
       ctx.body = ctx.util.refail('文章查询失败')
@@ -89,7 +89,35 @@ module.exports = class ArticleController {
    * @param Object ctx
    */
   static async update(ctx) {
-    ctx.body = ''
+    let { body } = ctx.request
+    let { id } = ctx.params
+    let article = await ArticleProxy.getById(id)
+
+    if (!article) {
+      ctx.body = ctx.util.refail('文章查询失败')
+      return
+    }
+
+    if (body.tags && body.tags.length) {
+      body.tags = await Promise.all(
+        body.tags.map(async tag => {
+          let value = await Tag.findOne({ name: tag })
+          if (!value) {
+            value = await Tag.create({ name: tag })
+          }
+          return value.id
+        })
+      )
+    }
+
+    article = await ArticleProxy.updateById(id, body)
+
+    if (!article) {
+      ctx.body = ctx.util.refail('文章更新失败')
+      return
+    }
+
+    ctx.body = ctx.util.resuccess(article)
   }
 
   /**
@@ -97,6 +125,13 @@ module.exports = class ArticleController {
    * @param Object ctx
    */
   static async delete(ctx) {
-    ctx.body = ''
+    let { id } = ctx.params
+    let article = await ArticleProxy.removeById(id)
+
+    if (!article) {
+      ctx.body = ctx.util.refail('删除文章失败')
+      return
+    }
+    ctx.body = ctx.util.resuccess()
   }
 }

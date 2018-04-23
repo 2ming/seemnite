@@ -2,5 +2,6 @@
 
 module.exports = {
   article: require('./article'),
-  user: require('./user')
+  user: require('./user'),
+  util: require('./util')
 }

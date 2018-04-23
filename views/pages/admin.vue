@@ -19,7 +19,6 @@
         <div class="pane" v-html="compiledMarkdown"></div>
       </div>
     </div>
-    
   </div>
   
 </template>
@@ -31,12 +30,12 @@ import { debounce } from 'lodash'
 import { seemnite } from '../api'
 
 export default {
-  middleware: 'auth',
   data() {
     return {
       source: '',
       title: '',
-      tags: ''
+      tags: '',
+      id: this.$route.query.id
     }
   },
   components: {},
@@ -55,6 +54,7 @@ export default {
       smartypants: false,
       xhtml: false
     })
+    this.getDetails()
   },
   computed: {
     compiledMarkdown() {
@@ -65,15 +65,23 @@ export default {
     update: debounce(function(e) {
       this.source = e.target.value
     }, 300),
+    getDetails() {
+      seemnite.articleDetail({}, this.id).then(res => {
+        let {title, tags, content} = res.data
+        this.title = title
+        this.tags = tags.map(tag => tag.name).join()
+        this.source = content
+      })
+    },
     addNews() {
       seemnite
-        .createArticle({
+        .createAndUpdate({
           data: {
             title: this.title,
             tags: this.tags.split(','),
             content: this.source
           }
-        })
+        }, this.id)
         .then(res => {
           this.$router.push({
             path: '/index'
@@ -92,17 +100,16 @@ export default {
   button {
     height: 40px;
     width: 100%;
-    padding: 0 20px;
     background-color: #2d8cf0;
     border-radius: 3px;
     border: 1px solid #2d8cf0;
     color: #fff;
   }
   input {
-    width: 95%;
+    width: 100%;
     border-radius: 3px;
     border: 1px solid #ccc;
-    height: 32px;
+    height: 40px;
     padding: 4px 10px;
   }
   .width-80 {

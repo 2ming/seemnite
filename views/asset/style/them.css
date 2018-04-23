@@ -15,7 +15,7 @@ body {
   margin: 0;
 }
 
-*:not('#mkdbuttons') {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -417,3 +417,5 @@ sub {
 .type-csharp .highlight .sc {
   color: #A31515;
 }
+
+

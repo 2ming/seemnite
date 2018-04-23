@@ -6,12 +6,24 @@
     <a target="_blank" href="http://github.com/2ming">Github</a>
     <p>E:421543076@qq.com</p>
     <p>Q:421543076</p>
+    <p><button class="btn" type="button" v-if="token" @click="logout">退出</button></p>
   </div>
 </template>
 <script>
+// import { user } from '../api'
 
 export default {
-  name: 'AuthorSide'
+  name: 'AuthorSide',
+  data() {
+    return {
+      token: this.$store.state.token
+    }
+  },
+  methods: {
+    logout() {
+      this.$router.push('/logout')
+    }
+  }
 }
 </script>
 <style lang="less">

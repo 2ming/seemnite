@@ -21,7 +21,7 @@ module.exports = {
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "quotes": ["error", "single"],
     //"semi": ["error", "always"],
-    "no-console": ["error"],
+    // "no-console": ["error", { allow: ["warn", "error", "log"] }],
     "no-empty": 2,
     "no-eq-null": 2,
     "no-new": 0,

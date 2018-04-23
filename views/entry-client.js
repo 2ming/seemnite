@@ -6,6 +6,7 @@ const { app, router, store } = createApp()
 Vue.mixin({
   beforeRouteUpdate(to, from, next) {
     const { asyncData } = this.$options
+
     if (asyncData) {
       asyncData({
         store: this.$store,
@@ -23,6 +24,11 @@ if (window.__INITIAL_STATE__) {
   store.replaceState(window.__INITIAL_STATE__)
 }
 
+new Promise(async() => {
+  if (store._actions && store._actions.INITSTORE) {
+    await store.dispatch('INITSTORE')
+  }
+})
 router.onReady(() => {
   router.beforeResolve((to, from, next) => {
     const matched = router.getMatchedComponents(to)

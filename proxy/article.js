@@ -28,7 +28,7 @@ module.exports = class GroupProxy {
     return Article.update({ _id: id }, { $set: doc })
   }
 
-  static del(query) {
-    return Article.remove(query)
+  static removeById(id) {
+    return Article.findByIdAndRemove(id)
   }
 }

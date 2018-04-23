@@ -7,7 +7,8 @@ const apiRouter = new Router({ prefix: '/api' })
 
 const {
   user,
-  article
+  article,
+  util
 } = require('./controllers')
 
 exports.api = apiRouter
@@ -23,3 +24,5 @@ exports.api = apiRouter
   .post('/article', article.create)
   .post('/article/:id?', article.update)
   .del('/article/:id?', article.delete)
+
+  .get('/wallpaper', util.wallpaper)

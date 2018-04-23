@@ -1,3 +1,4 @@
+import Message from '../components/message'
 import axios from 'axios'
 import conf from '../config'
 
@@ -29,14 +30,16 @@ instance.interceptors.response.use((res) => {
   if (body.success === false) {
     if (body.code === 10001) {
       body.data.forEach((date) => {
-        console.error(date)
       })
     } else if (messageUnless.indexOf(body.message) === -1) {
-      console.error(body.message)
+      Message({
+        type: 'warning',
+        message: body.message
+      })
     }
     return Promise.reject(res)
   }
-  return body.data
+  return body
 }, (error) => {
   const res = error.response
   if (res) {
@@ -47,7 +50,10 @@ instance.interceptors.response.use((res) => {
         return Promise.reject({ code: 401 }) // eslint-disable-line
       }
     } else if (isClient && res.data && res.data.error) {
-      console.error(res.data.error)
+      Message({
+        type: 'warning',
+        message: res.data.error
+      })
     }
   }
   Promise.reject(error)

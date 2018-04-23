@@ -1,7 +1,10 @@
 <template>
   <div class="margin-top50">
     <ul class="posts">
-        <li @click="goDetails(item._id)" v-for="item in articles" :key="item._id"><span>{{ item.createdAt | timeFormat('yyyy-MM-dd') }}</span> &raquo; <b>{{ item.title }}</b></li>
+        <li @click="goDetails(item._id)" v-for="(item, index) in articles" :key="item._id">
+          <button class="btn" v-show="token" type="button" @click.stop="editArticle(item._id)">编辑</button>
+          <button class="btn" v-show="token" type="button" @click.stop="delArticle(item._id, index)">删除</button>
+          <span>{{ item.createdAt | timeFormat('yyyy-MM-dd') }}</span> &raquo; <b>{{ item.title }}</b></li>
     </ul>
   </div>
 </template>
@@ -15,18 +18,32 @@ export default {
         page_index: 1,
         page_size: 30
       },
-      articles: []
+      articles: [],
+      token: this.$store.state.token
     }
   },
   mounted() {
     this.list()
   },
   methods: {
+    delArticle(id, index) {
+      seemnite.deleteArticle({}, id).then(res => {
+        if (res.success) {
+          this.articles.splice(index, 1)
+        }
+      })
+    },
+    editArticle(id) {
+      this.$router.push({
+        path: '/admin',
+        query: {id}
+      })
+    },
     list() {
       seemnite.articles({
         params: this.params
       }).then(res => {
-        this.articles = res.list
+        this.articles = res.data.list
       })
     },
     goDetails(id) {

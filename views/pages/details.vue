@@ -48,7 +48,7 @@ export default {
   methods: {
     getDetails() {
       seemnite.articleDetail({}, this.id).then(res => {
-        this.details = res
+        this.details = res.data
       })
     }
   }
