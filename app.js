@@ -36,7 +36,8 @@ app
         '/api/articles',
         '/api/articles/:id',
         '/api/login',
-        '/api/register'
+        '/api/register',
+        '/api/wallpaper'
       ]).test(ctx.path)
     }
     return true
