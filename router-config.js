@@ -20,7 +20,7 @@ exports.api = apiRouter
   .get('/user', user.list)
 
   .get('/articles', article.list)
-  .get('/article/:id?', article.get)
+  .get('/articles/:id?', article.get)
   .post('/article', article.create)
   .post('/article/:id?', article.update)
   .del('/article/:id?', article.delete)

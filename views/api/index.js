@@ -13,7 +13,7 @@ const seemnite = {
   createArticle: config => createAPI('/article', 'post', config),
   updateArticle: (config, id) => createAPI(`/article/${id}`, 'post', config),
   deleteArticle: (config, id) => createAPI(`/article/${id}`, 'delete', config),
-  articleDetail: (config, id) => createAPI(`/article/${id}`, 'get', config),
+  articleDetail: (config, id) => createAPI(`/articles/${id}`, 'get', config),
   articles: (config) => createAPI('/articles', 'get', config),
   createAndUpdate: (config, id) => id ? seemnite.updateArticle(config, id) : seemnite.createArticle(config)
 }
