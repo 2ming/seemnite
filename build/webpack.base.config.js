@@ -1,21 +1,32 @@
+'use strict'
+
+const fs = require('fs')
 const path = require('path')
+const config = require('config')
 const webpack = require('webpack')
-const utils = require('./utils')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 const isProd = process.env.NODE_ENV === 'production'
+const resolve = dir => path.resolve(__dirname, dir)
+
+config.fe.host = config.host
+config.fe.port = config.port
+fs.writeFileSync(resolve('../views/config.json'), JSON.stringify(config.fe))
+
 module.exports = {
   devtool: isProd ? false : '#cheap-module-source-map',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: '/dist/',
+    path: resolve('../dist'),
+    publicPath: config.get('fe.publicPath'),
     filename: '[name].[chunkhash].js'
   },
   resolve: {
+    extensions: ['.js', '.vue', '.json', '.md'],
     alias: {
-      public: path.resolve(__dirname, '../public')
+      'pages': resolve('../views/pages'),
+      'components': resolve('../views/components'),
+      'config': resolve('../views/config.json')
     }
   },
   externals: {
@@ -41,6 +52,7 @@ module.exports = {
             sourceMap: isProd,
             extract: isProd
           })
+          extractCSS: isProd,
         }
       },
       {

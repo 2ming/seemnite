@@ -2,7 +2,7 @@
   "name": "seemnite",
   "version": "1.0.0",
   "description": "a blog system by node",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "dev": "nodemon --ignore views/ --ignore public/ app",
     "dev:client": "node app",

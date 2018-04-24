@@ -32,10 +32,10 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   template = fs.readFileSync(templatePath, 'utf-8')
   clientConfig.entry.app = ['webpack-hot-middleware/client', clientConfig.entry.app]
   clientConfig.output.filename = '[name].js'
-  // clientConfig.plugins.push(
-  //   new webpack.HotModuleReplacementPlugin(),
-  //   new webpack.NoEmitOnErrorsPlugin()
-  // )
+  clientConfig.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  )
 
   const clientCompiler = webpack(clientConfig)
   const devMidd = devMiddleware(clientCompiler, {
@@ -60,7 +60,6 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   const mfs = new MFS()
   serverCompiler.outputFileSystem = mfs
   serverCompiler.watch({}, (err, stats) => {
-    console.log(err,'------------')
     if (err) throw err
     stats = stats.toJson()
     if (stats.errors.length) return

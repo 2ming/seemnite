@@ -1,8 +1,11 @@
+'use strict'
+
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const base = require('./webpack.base.config')
 const nodeExternals = require('webpack-node-externals')
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
+
+const base = require('./webpack.base.config')
 
 module.exports = merge(base, {
   target: 'node',
@@ -12,13 +15,11 @@ module.exports = merge(base, {
     filename: 'server-bundle.js',
     libraryTarget: 'commonjs2'
   },
-  resolve: {
-  },
-  // https://webpack.js.org/configuration/externals/#externals
-  // https://github.com/liady/webpack-node-externals
   externals: nodeExternals({
-    // do not externalize CSS files in case we need to import it from a dep
-    whitelist: /\.css$/
+    whitelist: [
+      /\.css$/,
+      'config' // webpack.base.config.js 已设置 alias config
+    ]
   }),
   plugins: [
     new webpack.DefinePlugin({

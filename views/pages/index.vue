@@ -1,10 +1,11 @@
 <template>
   <div class="margin-top50">
     <ul class="posts">
-        <li @click="goDetails(item._id)" v-for="(item, index) in articles" :key="item._id">
-          <button class="btn" v-show="token" type="button" @click.stop="editArticle(item._id)">编辑</button>
-          <button class="btn" v-show="token" type="button" @click.stop="delArticle(item._id, index)">删除</button>
-          <span>{{ item.createdAt | timeFormat('yyyy-MM-dd') }}</span> &raquo; <b>{{ item.title }}</b></li>
+        <li v-for="(item, index) in articles" :key="item._id">
+          <button class="btn" v-if="token" type="button" @click.stop="editArticle(item._id)">编辑</button>
+          <button class="btn" v-if="token" type="button" @click.stop="delArticle(item._id, index)">删除</button>
+          <span>{{ item.createdAt | timeFormat('yyyy-MM-dd') }}</span> &raquo; <b @click="goDetails(item._id)">{{ item.title }}</b>
+        </li>
     </ul>
   </div>
 </template>

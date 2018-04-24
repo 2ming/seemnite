@@ -54,7 +54,9 @@ export default {
       smartypants: false,
       xhtml: false
     })
-    this.getDetails()
+    if (this.id) {
+      this.getDetails()
+    }
   },
   computed: {
     compiledMarkdown() {

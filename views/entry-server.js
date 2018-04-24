@@ -20,7 +20,6 @@ export default context => {
     if (fullPath !== url) {
       return reject({ url: fullPath })
     }
-    console.log(store.state)
     serverCookies = context.cookies
     if (meta.requiresAuth && !serverCookies.get(conf.storageNamespace + 'token')) {
       return reject({ code: 401 })
