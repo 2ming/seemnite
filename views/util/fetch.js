@@ -3,7 +3,7 @@ import axios from 'axios'
 import conf from '../config'
 
 import Cookies from 'universal-cookie'
-import { serverCookies } from '../entry-server'
+import { serverCookies, route } from '../entry-server'
 
 const cookies = new Cookies()
 const isClient = process.env.VUE_ENV === 'client'
@@ -45,7 +45,11 @@ instance.interceptors.response.use((res) => {
   if (res) {
     if (res.status === 401 && /authentication/i.test(res.data.error)) {
       if (isClient) {
-        // router.push('/log-out')
+        Message({
+          type: 'warning',
+          message: '请重新登录'
+        })
+        route.push('/log-out')
       } else {
         return Promise.reject({ code: 401 }) // eslint-disable-line
       }

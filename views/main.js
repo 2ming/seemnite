@@ -28,6 +28,7 @@ export function createApp() {
   const router = createRouter()
 
   sync(store, router)
+
   // sync the router with the vuex store.
   // this registers `store.state.route`
   // create the app instance.

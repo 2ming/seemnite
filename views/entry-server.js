@@ -5,8 +5,9 @@ import conf from './config'
 const isDev = process.env.NODE_ENV !== 'production'
 
 let serverCookies
+let route
 
-export { serverCookies }
+export { serverCookies, route }
 export default context => {
   return new Promise((resolve, reject) => {
     const s = isDev && Date.now()
@@ -15,6 +16,7 @@ export default context => {
     const { url } = context
     const { fullPath, meta } = router.resolve(url).route
 
+    route = router
     if (fullPath !== url) {
       return reject({ url: fullPath })
     }
