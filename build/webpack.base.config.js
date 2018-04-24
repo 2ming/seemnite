@@ -7,6 +7,8 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
+const utils = require('./utils')
+
 const isProd = process.env.NODE_ENV === 'production'
 const resolve = dir => path.resolve(__dirname, dir)
 
@@ -51,7 +53,7 @@ module.exports = {
           loaders: utils.cssLoaders({
             sourceMap: isProd,
             extract: isProd
-          })
+          }),
           extractCSS: isProd,
         }
       },

@@ -2,8 +2,8 @@
   <div class="margin-top50">
     <ul class="posts">
         <li v-for="(item, index) in articles" :key="item._id">
-          <button class="btn" v-if="token" type="button" @click.stop="editArticle(item._id)">编辑</button>
-          <button class="btn" v-if="token" type="button" @click.stop="delArticle(item._id, index)">删除</button>
+          <button class="btn" v-show="token" type="button" @click="editArticle(item._id)">编辑</button>
+          <button class="btn" v-show="token" type="button" @click="delArticle(item._id, index)">删除</button>
           <span>{{ item.createdAt | timeFormat('yyyy-MM-dd') }}</span> &raquo; <b @click="goDetails(item._id)">{{ item.title }}</b>
         </li>
     </ul>
@@ -19,8 +19,12 @@ export default {
         page_index: 1,
         page_size: 30
       },
-      articles: [],
-      token: this.$store.state.token
+      articles: []
+    }
+  },
+  computed: {
+    token() {
+      return this.$store.state.token
     }
   },
   mounted() {
@@ -52,8 +56,7 @@ export default {
         path: `/details/${id}`
       })
     }
-  },
-  computed: {}
+  }
 }
 </script>
 

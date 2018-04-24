@@ -6,7 +6,8 @@
     <p><a target="_blank" href="http://github.com/2ming">Github</a></p>
     <p>E:421543076@qq.com</p>
     <p>Q:421543076</p>
-    <p v-if="token"><button class="btn" type="button" @click="logout">退出</button></p>
+    <button v-show="token" class="btn" type="button" @click="logout">退出</button>
+    <!-- <div v-if="token"></div> -->
   </div>
 </template>
 <script>
@@ -16,7 +17,11 @@ export default {
   name: 'AuthorSide',
   data() {
     return {
-      token: this.$store.state.token
+    }
+  },
+  computed: {
+    token() {
+      return this.$store.state.token
     }
   },
   methods: {
