@@ -34,6 +34,7 @@ app
     if (/^\/api/.test(ctx.path)) {
       return pathToRegexp([
         '/api/articles',
+        '/api/articles/:id',
         '/api/login',
         '/api/register',
         '/api/wallpaper'
