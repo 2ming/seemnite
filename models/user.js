@@ -12,6 +12,15 @@ const schema = new Schema({
   nickname: String,
   motto: String,
   avatar: String,
+  github: {
+    type: Object,
+    default: {
+      id: String,
+      username: String,
+      token: String,
+      email: String
+    }
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -22,6 +31,6 @@ const schema = new Schema({
   }
 })
 
-schema.index({ name: 1 }, { unique: true })
+schema.index({ username: 1 }, { unique: true })
 
 module.exports = mongoose.model('User', schema)

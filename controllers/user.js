@@ -9,7 +9,6 @@ const util = require('../util')
 const jwtSecret = config.get('jwt.secret')
 const jwtExpire = config.get('jwt.expire')
 const fields = ['username', '_id', 'token']
-
 module.exports = class UserController {
   /**
    * 用户注册
@@ -17,7 +16,7 @@ module.exports = class UserController {
    */
 
   static async register(ctx) {
-    const username = ctx.checkBody('name').notEmpty().len(4, 20).value
+    const username = ctx.checkBody('username').notEmpty().len(4, 20).value
     const password = ctx.checkBody('password').notEmpty().len(6, 20).value
 
     if (ctx.errors) {
@@ -66,7 +65,6 @@ module.exports = class UserController {
       ctx.body = ctx.util.refail('用户名或密码错误')
       return
     }
-
     user.token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: jwtExpire })
 
     ctx.body = ctx.util.resuccess(_.pick(user, fields))

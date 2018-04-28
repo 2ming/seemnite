@@ -7,11 +7,12 @@
     <p>E:421543076@qq.com</p>
     <p>Q:421543076</p>
     <button v-show="token" class="btn" type="button" @click="logout">退出</button>
+    <button v-show="!token" class="btn" type="button" @click="githubLogin">github登录</button>
     <!-- <div v-if="token"></div> -->
   </div>
 </template>
 <script>
-// import { user } from '../api'
+import {user} from '../../api'
 
 export default {
   name: 'AuthorSide',
@@ -25,6 +26,11 @@ export default {
     }
   },
   methods: {
+    githubLogin() {
+      user.github().then(res => {
+        window.location = res.data.path
+      })
+    },
     logout() {
       this.$router.push('/logout')
     }

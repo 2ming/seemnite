@@ -33,6 +33,8 @@ app
   .use(koaJwt({ secret: jwtSecret }).unless((ctx) => {
     if (/^\/api/.test(ctx.path)) {
       return pathToRegexp([
+        '/api/github/login',
+        '/api/github/callback',
         '/api/articles',
         '/api/articles/:id',
         '/api/login',
@@ -52,8 +54,7 @@ app.proxy = config.get('proxy')
 if (!module.parent) {
   const port = config.get('port')
   const host = config.get('host')
-  router.get('*', require('./middlewares/view').render(app))
-  app.use(router.routes()).use(router.allowedMethods())
+  app.use(require('./middlewares/view').render(app))
   app.listen(port, host)
   console.log(`server started at http://${host}:${port}`)
 }

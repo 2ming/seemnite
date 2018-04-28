@@ -18,6 +18,7 @@ const seemnite = {
   createAndUpdate: (config, id) => id ? seemnite.updateArticle(config, id) : seemnite.createArticle(config)
 }
 const user = {
+  github: config => createAPI('/github/login', 'get', config),
   wallpaper: config => createAPI('/wallpaper', 'get', config),
   login: (config) => createAPI('/login', 'post', config),
   logout: (config) => createAPI('/logout', 'get', config),

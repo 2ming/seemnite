@@ -7,6 +7,10 @@ export default {
   async INITSTORE({ commit, state, getters }, user) {
     const cookies = new Cookies()
     let token = cookies.get(conf.storageNamespace + 'token')
+    cookies.set('token', token, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 31
+    })
     if (token) {
       commit('SET_TOKEN', token)
     }

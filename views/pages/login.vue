@@ -2,7 +2,7 @@
     <div class="padding login" :style="{'background-image': `url(${photos})`}">
         <div class="login-content">
           <p class="login-title">SEEMNITE</p>
-          <input class="input" v-model="user.name" type="text" placeholder="请输入用户名" >
+          <input class="input" v-model="user.username" type="text" placeholder="请输入用户名" >
           <input class="input" v-model="user.password" type="password" placeholder="请输入密码">
           <button class="btn" type="button" @click="login">登录</button>
         </div>

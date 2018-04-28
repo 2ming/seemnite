@@ -8,10 +8,14 @@ const apiRouter = new Router({ prefix: '/api' })
 const {
   user,
   article,
-  util
+  util,
+  github
 } = require('./controllers')
 
 exports.api = apiRouter
+  .get('/github/login', github.login)
+  .get('/github/callback', github.callback)
+
   .post('/register', user.register)
   .post('/login', user.login)
   .get('/logout', user.logout)

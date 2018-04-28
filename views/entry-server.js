@@ -3,6 +3,7 @@ import { createApp } from './main'
 import conf from './config'
 
 const isDev = process.env.NODE_ENV !== 'production'
+const token = conf.storageNamespace + 'token'
 
 let serverCookies
 let route
@@ -21,7 +22,7 @@ export default context => {
       return reject({ url: fullPath })
     }
     serverCookies = context.cookies
-    if (meta.requiresAuth && !serverCookies.get(conf.storageNamespace + 'token')) {
+    if (meta.requiresAuth && !serverCookies.get(token)) {
       return reject({ code: 401 })
     } else {
       router.push(url)
