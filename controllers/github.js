@@ -47,13 +47,14 @@ module.exports = class GithubController {
         })
       if (github) {
         let githubUser = await User.findOne({username: github.name})
-        if (githubUser) {
+        let githubId = '' + github.id
+        let isUser = await User.findOne({'github.id': githubId})
+        if (!isUser && githubUser) {
           github.name = github.name + (new Date()).valueOf()
         }
-        let githubId = '' + github.id
         let user = await User.findOneAndUpdate({'github.id': githubId}, { $set:
           {
-            username: github.name,
+            username: isUser ? isUser.username : github.name,
             password: githubtoken,
             email: github.email,
             github: {

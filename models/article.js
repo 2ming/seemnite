@@ -11,6 +11,10 @@ const schema = new Schema({
     type: Number,
     default: 0
   },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   flag: {
     type: Number,
     default: 1
