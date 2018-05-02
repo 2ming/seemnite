@@ -11,6 +11,10 @@ A blog system by node
 - [x] markdown -- 完成
 - [ ] 上传.md文件生成 -- 未完成
 - [x] 登陆 -- 完成
+- [x] Github登录 -- 完成
+- [ ] 微信登录 -- 未完成
+- [ ] 文章对应用户 -- 未完成
+
 
 ### Launch
 
@@ -64,8 +68,6 @@ $ npm run lint
 │   ├── article.js
 │   └── index.js
 ├── public 
-├── router //路由
-│   └── index.js
 ├── router-config.js //路由配置
 ├── server
 ├── static
